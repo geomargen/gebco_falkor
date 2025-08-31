@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>GEBCO Tiles en Cesium</title>
-  <script src="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Cesium.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-  <style> html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; } </style>
+    <meta charset="UTF-8">
+    <title>GEBCO 3D de la zona de Estudio de la Campaña Ecosde2cañones</title>
+    <script src="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Cesium.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        html, body, #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 <div id="cesiumContainer"></div>
 <script>
-const viewer = new Cesium.Viewer('cesiumContainer', {
-    imageryProvider: new Cesium.UrlTemplateImageryProvider({
-        url: './tiles/{z}/{x}/{y}.png', // tu carpeta tiles
-        maximumLevel: 8
-    }),
-    baseLayerPicker: false,
-    terrainProvider: Cesium.createWorldTerrain() // base de terreno global de Cesium
-});
+    // Crear visor
+    const viewer = new Cesium.Viewer('cesiumContainer', {
+        terrainProvider: Cesium.createWorldTerrain(), // relieve global
+        baseLayerPicker: false
+    });
+
+    // Añadir tiles GEBCO como overlay
+    const gebcoTiles = new Cesium.UrlTemplateImageryProvider({
+        url: './tiles/{z}/{x}/{y}.png', // ruta relativa a la carpeta tiles
+        maximumLevel: 8,   // coincidir con los tiles que generaste
+        credit: 'GEBCO 2025'
+    });
+
+    viewer.imageryLayers.addImageryProvider(gebcoTiles);
+
+    // Opcional: mover cámara al área de interés
+    viewer.camera.setView({
+        destination: Cesium.Rectangle.fromDegrees(-68.55, -47.63, -52.97, -38.95)
+    });
 </script>
 </body>
 </html>
+
 
 

@@ -1,32 +1,25 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Mapa de Batimetría 3D de parte del Margen Continental Argentino en las zonas a estudiar en la Campaña Ecosde2cañones (datos de GEBCO)</title>
-    <script src="https://unpkg.com/cesium/Build/Cesium/Cesium.js"></script>
-    <link href="https://unpkg.com/cesium/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-    <style>
-        html, body, #cesiumContainer {
-            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>GEBCO Tiles en Cesium</title>
+  <script src="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Cesium.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/cesium@1.112/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <style> html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; } </style>
 </head>
 <body>
 <div id="cesiumContainer"></div>
 <script>
-    const viewer = new Cesium.Viewer('cesiumContainer', {
-        imageryProvider: new Cesium.UrlTemplateImageryProvider({
-            url: './tiles/{z}/{x}/{y}.png', // path relativo a tus tiles
-            maximumLevel: 8
-        }),
-        baseLayerPicker: false
-    });
-
-    // Centrar cámara en tu área
-    viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(-60.76, -43.30, 50000) // lon, lat, altura
-    });
+const viewer = new Cesium.Viewer('cesiumContainer', {
+    imageryProvider: new Cesium.UrlTemplateImageryProvider({
+        url: './tiles/{z}/{x}/{y}.png', // tu carpeta tiles
+        maximumLevel: 8
+    }),
+    baseLayerPicker: false,
+    terrainProvider: Cesium.createWorldTerrain() // base de terreno global de Cesium
+});
 </script>
 </body>
 </html>
+
 

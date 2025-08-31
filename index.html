@@ -1,27 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Visualización de parte del Margen Continental Argentino donde se desarrollará la Campaña Ecosde2cañones con el Buque Falkor (too) usando datos de GEBCO 2025</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #000;
-    }
-    model-viewer {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
+  <title>Mapa de Batimetría 3D de parte del Margen Continental Argentino en las zonas a estudiar en la Campaña Ecosde2cañones (datos de GEBCO)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.5/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.5/dist/leaflet.js"></script>
 </head>
 <body>
-  <model-viewer src="assets/gebco_2025.glb" 
-                alt="Mapa GEBCO 2025"
-                camera-controls 
-                auto-rotate 
-                background-color="#000">
-  </model-viewer>
+<div id="map" style="width: 100%; height: 100vh;"></div>
+<script>
+  var map = L.map('map').setView([-43, -60], 5); // Ajusta lat/lon y zoom inicial
+
+  L.tileLayer('./tiles/{z}/{x}/{y}.png', {
+    maxZoom: 8,
+    attribution: 'GEBCO 2025'
+  }).addTo(map);
+</script>
 </body>
 </html>
-
